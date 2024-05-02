@@ -1,0 +1,39 @@
+[
+  {
+    "id": 8840403227753489703,
+    "name": "warlock",
+    "coordinates": {
+      "x": 234.3453,
+      "y": 35
+    },
+    "creationDate": "May 2, 2024, 12:43:30 PM",
+    "health": 10000.11,
+    "loyal": false,
+    "category": "SCOUT",
+    "weaponType": "BOLTGUN",
+    "chapter": {
+      "name": "chapter_name",
+      "marineCount": 839,
+      "world": "SomeWorld"
+    }
+  },
+  {
+    "id": 6673145401557657989,
+    "name": "mana",
+    "coordinates": {
+      "x": 1269764.6765,
+      "y": 12
+    },
+    "creationDate": "May 2, 2024, 12:43:30 PM",
+    "health": 1.2345678675546E10,
+    "loyal": false,
+    "category": "ASSAULT",
+    "weaponType": "BOLT_RIFLE",
+    "chapter": {
+      "name": "noChap",
+      "parentLegion": "legion",
+      "marineCount": 453,
+      "world": "1h1h2"
+    }
+  }
+]

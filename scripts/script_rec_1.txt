@@ -1,0 +1,16 @@
+save
+execute_script C:\Users\Public\scripts\script_test.txt
+add
+mana
+1269764.6765
+12
+12345678675.546
+True
+ASSAULT
+BOLT_RIFLE
+noChap
+legion
+453
+1h1h2
+save
+

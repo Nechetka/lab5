@@ -1,0 +1,13 @@
+add
+warlock
+234.3453
+35
+10000.11
+true
+SCOUT
+BOLTGUN
+chapter_name
+
+839
+SomeWorld
+execute_script C:\Users\Public\scripts\script_rec_3.txt
