@@ -1,103 +1,109 @@
-package model.UserCreators;
+package model.Creators.UserCreators;
 
-import exceptions.ConsoleReadExceptions;
+import exceptions.ConsoleReadException;
 import model.Chapter;
+import model.Creators.BaseObjectUserCreator;
 import model.checkers.ChapterMarineCountChecker;
 import model.checkers.NameChecker;
-import system.Utils;
+import system.UserConsole;
 
 
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class ChapterCreator implements BaseObjectUserCreator<Chapter> {
-
+    private final Scanner out;
+    public ChapterCreator (){
+        out = new Scanner(System.in);
+    }
     @Override
     public Chapter create() {
         Chapter chapter = new Chapter();
-        System.out.println("Начинаем создание объекта класса Chapter:");
+        UserConsole console = new UserConsole(out);
+        console.printLine("Начинаем создание объекта класса Chapter:");
         while (true) {
             try {
-                System.out.println("Введите значение name (тип String,значение не null и не пустое)");
+                console.printLine("Введите значение name (тип String,значение не null и не пустое)");
                 String line = "";
                 var nameCheck = new NameChecker();
-                line = Utils.consoleReader();
+                line = console.read();
                 if (nameCheck.check(line)) {
                     chapter.setName(line);
                 } else {
-                    System.out.println("Значение строки должно быть не пустым и не null. Попробуйте заново.");
+                    console.printLine("Значение строки должно быть не пустым и не null. Попробуйте заново.");
                     continue;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Неправильный ввод строки. Попробуйте заново.");
+                console.printLine("Неправильный ввод строки. Попробуйте заново.");
                 continue;
-            }catch (ConsoleReadExceptions e){
-                System.out.println(e.getMessage()+" Попробуйте заново.");
+            }catch (ConsoleReadException e){
+                console.printLine(e.getMessage()+" Попробуйте заново.");
                 continue;
             }
             break;
         }
         while (true) {
             try {
-                System.out.println("Введите значение parentLegion (тип String)");
+                console.printLine("Введите значение parentLegion (тип String)");
                 String name;
-                name = Utils.consoleReader();
+                name = console.read();
                 chapter.setParentLegion(name);
             } catch (InputMismatchException e) {
-                System.out.println("Неправильный ввод строки. Попробуйте заново.");
+                console.printLine("Неправильный ввод строки. Попробуйте заново.");
                 continue;
-            } catch (ConsoleReadExceptions e){
-            System.out.println(e.getMessage()+" Попробуйте заново.");
+            } catch (ConsoleReadException e){
+            console.printLine(e.getMessage()+" Попробуйте заново.");
             continue;
         }
             break;
         }
         while (true) {
             try {
-                System.out.println("Введите значение marineCount (тип Integer,значение больше 0, максимальное значение: 1000)");
+                console.printLine("Введите значение marineCount (тип Integer,значение больше 0, максимальное значение: 1000)");
                 int value = 0;
                 var countCheck = new ChapterMarineCountChecker();
-                String line = Utils.consoleReader();
+                String line = console.read();
                 if (line!=null)
                     value = Integer.parseInt(line);
                 else {
-                    System.out.println("Значение числа должно быть не null. Попробуйте заново.");
+                    console.printLine("Значение числа должно быть не null. Попробуйте заново.");
                     continue;
                 }
                 if (countCheck.check(value)) {
                     chapter.setMarineCount(value);
                 } else {
-                    System.out.println("Значение числа должно быть целым больше 0 и не больше 1000. Попробуйте заново.");
+                    console.printLine("Значение числа должно быть целым больше 0 и не больше 1000. Попробуйте заново.");
                     continue;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Неправильный ввод числа. Попробуйте заново.");
+                console.printLine("Неправильный ввод числа. Попробуйте заново.");
                 continue;
-            } catch (ConsoleReadExceptions e){
-            System.out.println(e.getMessage()+" Попробуйте заново.");
+            } catch (ConsoleReadException e){
+            console.printLine(e.getMessage()+" Попробуйте заново.");
             continue;
         }
             break;
         }
         while (true) {
             try {
-                System.out.println("Введите значение world (тип String,значение не null)");
-                String line = Utils.consoleReader();
+                console.printLine("Введите значение world (тип String,значение не null)");
+                String line = console.read();
                 if (line!=null) {
                     chapter.setWorld(line);
                 } else {
-                    System.out.println("Значение числа должно быть не null. Попробуйте заново.");
+                    console.printLine("Значение числа должно быть не null. Попробуйте заново.");
                     continue;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Неправильный ввод числа. Попробуйте заново.");
+                console.printLine("Неправильный ввод числа. Попробуйте заново.");
                 continue;
-            }catch (ConsoleReadExceptions e){
-                System.out.println(e.getMessage()+" Попробуйте заново.");
+            }catch (ConsoleReadException e){
+                console.printLine(e.getMessage()+" Попробуйте заново.");
                 continue;
             }
             break;
         }
-        System.out.println("Обьект Chapter успешно создан!");
+        console.printLine("Обьект Chapter успешно создан!");
         return chapter;
     }
 }

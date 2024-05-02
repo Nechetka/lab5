@@ -1,2 +1,5 @@
-package exceptions;public class UnlnownCommandException {
+package exceptions;
+
+public class UnknownCommandException extends Exception{
+    public UnknownCommandException(String massage){super(massage);}
 }

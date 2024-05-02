@@ -1,8 +1,7 @@
 package fileManipulation;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public interface SerializationObject <T>{
+public interface WriteToObject<T>{
     public void write (String path, T obj) throws IOException;
 }

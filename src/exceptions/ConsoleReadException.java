@@ -1,7 +1,7 @@
 package exceptions;
 
-public class ConsoleReadExceptions extends Exception{
-    public ConsoleReadExceptions (String message)
+public class ConsoleReadException extends Exception{
+    public ConsoleReadException(String message)
     {
         super(message);
     }

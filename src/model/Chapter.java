@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Chapter {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private String parentLegion;
@@ -37,4 +39,29 @@ public class Chapter {
     public String getWorld() {
         return world;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chapter ch = (Chapter) o;
+        return Double.compare(ch.marineCount, this.marineCount) == 0 && Objects.equals(ch.name,this.name)
+                & Objects.equals(ch.world,this.world) & Objects.equals(ch.parentLegion,this.parentLegion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name,parentLegion,marineCount,world);
+    }
+
+    @Override
+    public String toString() {
+        return "Chapter{" +
+                "name: " + name +
+                ", parentLegion: " + parentLegion +
+                ", marineCount: " + marineCount +
+                ", world: " + world +
+                '}';
+    }
+
 }

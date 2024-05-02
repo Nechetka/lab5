@@ -1,13 +1,15 @@
 package fileManipulation;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.*;
 
-public class serializationJSONCollection<T> implements SerializationObject<T>{
+public class WriteJSONCollection<T> implements WriteToObject<T> {
 
     @Override
     public void write(String path,T obj) throws IOException  {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();;
         String json = gson.toJson(obj);
         FileOutputStream out = new FileOutputStream(path + "/SpaceMarines.json");
         Writer writer = new OutputStreamWriter(out);

@@ -1,8 +1,12 @@
 package model;
 
 import java.util.Date;
+import java.util.Objects;
 
-public class SpaceMarine {
+public class SpaceMarine implements Comparable<SpaceMarine>{
+    public SpaceMarine(){
+
+    }
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -83,5 +87,38 @@ public class SpaceMarine {
 
     public Chapter getChapter() {
         return chapter;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SpaceMarine marine = (SpaceMarine) o;
+        return  Objects.equals(this.name,marine.name) && this.coordinates.equals(marine.coordinates)
+                && Double.compare(this.health,marine.health)==0 && this.loyal==marine.loyal
+                && this.chapter.equals(marine.chapter) && this.category.equals(marine.category) && this.weaponType.equals(marine.weaponType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, coordinates, creationDate, health, loyal, category, weaponType, chapter);
+    }
+
+    @Override
+    public String toString() {
+        return "SpaceMarine{" +
+                "id: " + id +
+                ", name: " + name  +
+                ", " + coordinates +
+                ", creationDate: " + creationDate +
+                ", health: " + health +
+                ", loyal: " + loyal +
+                ", AstartesCategory: " + category +
+                ", Weapon: " + weaponType +
+                ", " + chapter+
+                '}';
+    }
+    @Override
+    public int compareTo(SpaceMarine o) {
+        return (int) (this.id-o.getId());
     }
 }

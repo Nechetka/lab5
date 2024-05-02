@@ -1,2 +1,5 @@
-package model.checkers;public interface checked {
+package model.checkers;
+
+public interface Checked<T> {
+    public boolean check(T obj);
 }

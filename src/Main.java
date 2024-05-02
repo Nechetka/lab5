@@ -1,17 +1,35 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+
+import client.Invoker;
+import exceptions.InvokerException;
+import fileManipulation.ReadFromFileObject;
+import fileManipulation.ReadJSONCollection;
+import model.SpaceMarine;
+import system.SpaceMarinesManager;
+import system.UserConsole;
+import system.Utils;
+
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.TreeSet;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
-
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+        Utils.setEnv("Lab5");
+        Invoker invoker = new Invoker();
+        UserConsole console = new UserConsole(new Scanner(System.in));
+        SpaceMarinesManager marineManager = SpaceMarinesManager.getInstance();
+        ReadFromFileObject<TreeSet<SpaceMarine>> reader = new ReadJSONCollection();
+        console.printLine(System.getenv(Utils.getEnv()));
+        TreeSet<SpaceMarine> marines = reader.read(System.getenv(Utils.getEnv())+"\\SpaceMarines.json");
+        marineManager.setCollection(marines);
+        while (true){
+            try {
+                invoker.startToInvoke(new InputStreamReader(System.in));
+            } catch (InvokerException e){
+                console.printLine(e.getMessage());
+            }
         }
+
+
     }
 }

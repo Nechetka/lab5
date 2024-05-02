@@ -1,5 +1,5 @@
 package exceptions;
 
-public class CreateObjectExceptions extends Exception{
-    public CreateObjectExceptions(String massage){super(massage);}
+public class CreateObjectException extends Exception{
+    public CreateObjectException(String massage){super(massage);}
 }

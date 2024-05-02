@@ -1,5 +1,5 @@
 package exceptions;
 
-public class WrongAmountOfCommandArgumentException extends Exception{
-    public WrongAmountOfCommandArgumentException (String massage){super(massage);}
+public class WrongValuesOfCommandArgumentException extends Exception{
+    public WrongValuesOfCommandArgumentException(String massage){super(massage);}
 }

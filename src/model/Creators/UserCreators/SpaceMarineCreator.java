@@ -1,7 +1,8 @@
-package model.UserCreators;
+package model.Creators.UserCreators;
 
-import exceptions.ConsoleReadExceptions;
+import exceptions.ConsoleReadException;
 import model.AstartesCategory;
+import model.Creators.BaseObjectUserCreator;
 import model.SpaceMarine;
 import model.Weapon;
 import model.checkers.MarineHealthChecker;
@@ -15,11 +16,10 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class SpaceMarineCreator implements BaseObjectUserCreator<SpaceMarine> {
-    private static long id = 1l;
     private Date initDate;
     private final Scanner out;
-    public SpaceMarineCreator (Scanner sc){
-        out = sc;
+    public SpaceMarineCreator (){
+        out = new Scanner(System.in);
     }
     @Override
     public SpaceMarine create() {
@@ -28,8 +28,7 @@ public class SpaceMarineCreator implements BaseObjectUserCreator<SpaceMarine> {
         marine.setCreationDate(initDate);
         UserConsole console = new UserConsole(out);
         console.printLine("Начинаем создание объекта класса SpaceMarine:");
-        marine.setId(id);
-        id+=1;
+        marine.setId(Utils.getNewId());
         while(true){
             try {
                 console.printLine("Введите значение name (тип String,значение не null и не пустое)");
@@ -41,7 +40,7 @@ public class SpaceMarineCreator implements BaseObjectUserCreator<SpaceMarine> {
                     console.printLine("Значение строки должно быть не пустым и не null. Попробуйте заново.");
                     continue;
                 }
-            } catch (ConsoleReadExceptions e) {
+            } catch (ConsoleReadException e) {
                 console.printLine(e.getMessage()+" Попробуйте заново.");
                 continue;
             }
@@ -52,27 +51,27 @@ public class SpaceMarineCreator implements BaseObjectUserCreator<SpaceMarine> {
         while (true) {
             try {
                 var healthCheck = new MarineHealthChecker();
-                System.out.println("Введите значение Health (тип dooble ,значение больше 0)");
+                console.printLine("Введите значение Health (тип dooble ,значение больше 0)");
                 double value = 0;
-                String line = Utils.consoleReader();
+                String line = console.read();
                 if (line!=null)
                     value = Double.parseDouble(line);
                 else {
-                    System.out.println("Значение числа должно быть не null. Попробуйте заново.");
+                    console.printLine("Значение числа должно быть не null. Попробуйте заново.");
                     continue;
                 }
                 if (healthCheck.check(value)) {
                     marine.setHealth(value);
                 }
                 else{
-                    System.out.println("Значение числа должно быть >0. Попробуйте заново.");
+                    console.printLine("Значение числа должно быть >0. Попробуйте заново.");
                     continue;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Неправильный ввод числа. Попробуйте заново.");
+                console.printLine("Неправильный ввод числа. Попробуйте заново.");
                 continue;
-            } catch (ConsoleReadExceptions e){
-            System.out.println(e.getMessage()+" Попробуйте заново.");
+            } catch (ConsoleReadException e){
+            console.printLine(e.getMessage()+" Попробуйте заново.");
             continue;
         }
             break;
@@ -80,17 +79,17 @@ public class SpaceMarineCreator implements BaseObjectUserCreator<SpaceMarine> {
         while (true) {
             try {
                 Boolean loyal = null;
-                System.out.println("Введите значение Loyal (тип Boolean ,значение не null)");
-                String line = Utils.consoleReader();
+                console.printLine("Введите значение Loyal (тип Boolean ,значение не null)");
+                String line = console.read();
                 if (line != null)
-                    loyal = Boolean.getBoolean(line);
+                    loyal = Boolean.valueOf(line);
                 else {
-                    System.out.println("Значение числа должно быть не null. Попробуйте заново.");
+                    console.printLine("Значение числа должно быть не null. Попробуйте заново.");
                     continue;
                 }
                 marine.setLoyal(loyal);
-            }catch (ConsoleReadExceptions e){
-                    System.out.println(e.getMessage()+" Попробуйте заново.");
+            }catch (ConsoleReadException e){
+                    console.printLine(e.getMessage()+" Попробуйте заново.");
                     continue;
                 }
             break;
@@ -99,21 +98,21 @@ public class SpaceMarineCreator implements BaseObjectUserCreator<SpaceMarine> {
         while (true) {
             try {
                 AstartesCategory cat;
-                System.out.println("Введите одно из значений AstartesCategory на выбор из предложенных:");
-                System.out.println(categories);
-                String line = Utils.consoleReader();
+                console.printLine("Введите одно из значений AstartesCategory на выбор из предложенных:");
+                console.printLine(categories);
+                String line = console.read();
                 if (line!=null)
                     cat = AstartesCategory.valueOf(line);
                 else {
-                    System.out.println("Строка не должна быть null. Попробуйте заново.");
+                    console.printLine("Строка не должна быть null. Попробуйте заново.");
                     continue;
                 }
                 marine.setCategory(cat);
             } catch (IllegalArgumentException|EnumConstantNotPresentException e) {
-                System.out.println("Нет такой переменной. Попробуйте заново.");
+                console.printLine("Нет такой переменной. Попробуйте заново.");
                 continue;
-            }catch (ConsoleReadExceptions e){
-                System.out.println(e.getMessage()+" Попробуйте заново.");
+            }catch (ConsoleReadException e){
+                console.printLine(e.getMessage()+" Попробуйте заново.");
                 continue;
             }
             break;
@@ -122,28 +121,28 @@ public class SpaceMarineCreator implements BaseObjectUserCreator<SpaceMarine> {
         while (true) {
             try {
                 Weapon weapon;
-                System.out.println("Введите одно из значений Weapon на выбор из предложенных:");
-                System.out.println(weapons);
-                String line = Utils.consoleReader();
+                console.printLine("Введите одно из значений Weapon на выбор из предложенных:");
+                console.printLine(weapons);
+                String line = console.read();
                 if (line!=null)
                     weapon = Weapon.valueOf(line);
                 else {
-                    System.out.println("Строка не должна быть null. Попробуйте заново.");
+                    console.printLine("Строка не должна быть null. Попробуйте заново.");
                     continue;
                 }
                 marine.setWeaponType(weapon);
             } catch (IllegalArgumentException|EnumConstantNotPresentException e) {
-                System.out.println("Нет такой переменной. Попробуйте заново.");
+                console.printLine("Нет такой переменной. Попробуйте заново.");
                 continue;
-            }catch (ConsoleReadExceptions e){
-                System.out.println(e.getMessage()+" Попробуйте заново.");
+            }catch (ConsoleReadException e){
+                console.printLine(e.getMessage()+" Попробуйте заново.");
                 continue;
             }
             break;
         }
         var chapterCreator = new ChapterCreator();
         marine.setChapter(chapterCreator.create());
-        System.out.println("Обьект SpaceMarine успешно создан!");
+        console.printLine("Обьект SpaceMarine успешно создан!");
         return marine;
     }
 }

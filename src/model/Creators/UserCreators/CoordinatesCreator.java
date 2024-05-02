@@ -1,34 +1,40 @@
-package model.UserCreators;
+package model.Creators.UserCreators;
 
-import exceptions.ConsoleReadExceptions;
+import exceptions.ConsoleReadException;
 import model.Coordinates;
+import model.Creators.BaseObjectUserCreator;
 import model.checkers.CoordinateYChecker;
-import system.Utils;
+import system.UserConsole;
 
 import java.util.Scanner;
 
 public class CoordinatesCreator implements BaseObjectUserCreator<Coordinates> {
+    private final Scanner out;
+    public CoordinatesCreator (){
+        out = new Scanner(System.in);
+    }
     @Override
     public Coordinates create() {
         Coordinates coordinates = new Coordinates();
-        System.out.println("Начинаем создание объекта класса Coordinates:");
+        UserConsole console = new UserConsole(out);
+        console.printLine("Начинаем создание объекта класса Coordinates:");
         while (true) {
             try {
-                System.out.println("Введите значение координаты x (тип Dooble,значение не null)");
+                console.printLine("Введите значение координаты x (тип Dooble,значение не null)");
                 double value=0;
-                String line = Utils.consoleReader();
+                String line = console.read();
                 if (line!= null)
                     value = Double.parseDouble(line);
                 else{
-                    System.out.println("Значение числа должно быть не null. Попробуйте заново.");
+                    console.printLine("Значение числа должно быть не null. Попробуйте заново.");
                     continue;
                 }
                 coordinates.setX(value);
             } catch (NumberFormatException e) {
-                System.out.println("Неправильный ввод числа. Попробуйте заново.");
+                console.printLine("Неправильный ввод числа. Попробуйте заново.");
                 continue;
-            }catch (ConsoleReadExceptions e){
-                System.out.println(e.getMessage()+" Попробуйте заново.");
+            }catch (ConsoleReadException e){
+                console.printLine(e.getMessage()+" Попробуйте заново.");
                 continue;
             }
             break;
@@ -36,32 +42,32 @@ public class CoordinatesCreator implements BaseObjectUserCreator<Coordinates> {
         while (true) {
             try {
                 var Ycheck = new CoordinateYChecker();
-                System.out.println("Введите значение координаты y (тип int,значение не больше 58)");
+                console.printLine("Введите значение координаты y (тип int,значение не больше 58)");
                 int value = 0;
-                String line = Utils.consoleReader();
+                String line = console.read();
                 if (line!=null)
                     value = Integer.parseInt(line);
                 else {
-                    System.out.println("Значение числа должно быть не null. Попробуйте заново.");
+                    console.printLine("Значение числа должно быть не null. Попробуйте заново.");
                     continue;
                 }
                 if (Ycheck.check(value)) {
                     coordinates.setY(value);
                 }
                 else{
-                    System.out.println("Значение числа должно быть <58. Попробуйте заново.");
+                    console.printLine("Значение числа должно быть <58. Попробуйте заново.");
                     continue;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Неправильный ввод. Попробуйте заново.");
+                console.printLine("Неправильный ввод. Попробуйте заново.");
                 continue;
-            }catch (ConsoleReadExceptions e){
-                System.out.println(e.getMessage()+" Попробуйте заново.");
+            }catch (ConsoleReadException e){
+                console.printLine(e.getMessage()+" Попробуйте заново.");
                 continue;
             }
             break;
         }
-        System.out.println("Обьект Coordinates успешно создан!");
+        console.printLine("Обьект Coordinates успешно создан!");
         return coordinates;
     }
 }

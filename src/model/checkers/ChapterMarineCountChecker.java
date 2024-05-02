@@ -1,2 +1,8 @@
-package model.checkers;public class ChapterMarineCountChecker {
+package model.checkers;
+
+public class ChapterMarineCountChecker implements Checked<Integer>{
+    @Override
+    public boolean check(Integer obj){
+        return (obj != null && obj > 0 && obj<=1000);
+    }
 }
