@@ -1,6 +1,8 @@
 package fileManipulation;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import model.SpaceMarine;
 import system.UserConsole;
@@ -25,6 +27,18 @@ public class ReadJSONCollection implements ReadFromFileObject<TreeSet<SpaceMarin
             return marines;
         } catch (FileNotFoundException e) {
             console.printLine("Предыдущий файл не был найден или его вообще не существовало.");
+            return marines;
+        } catch (JsonSyntaxException e){
+            File f = new File(path);
+            if (f.exists()) {
+                f.delete();
+            }
+            try {
+                f.createNewFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            console.printLine("Предыдущий файл не правильно записан в Json. Он удален и создан новый");
             return marines;
         }
     }

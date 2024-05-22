@@ -20,11 +20,20 @@ public class Main {
         SpaceMarinesManager marineManager = SpaceMarinesManager.getInstance();
         ReadFromFileObject<TreeSet<SpaceMarine>> reader = new ReadJSONCollection();
         console.printLine(System.getenv(Utils.getEnv()));
-        TreeSet<SpaceMarine> marines = reader.read(System.getenv(Utils.getEnv())+"\\SpaceMarines.json");
+        TreeSet<SpaceMarine> marines = reader.read(System.getenv(Utils.getEnv())+"/SpaceMarines.json");
         marineManager.setCollection(marines);
         while (true){
             try {
                 invoker.startToInvoke(new InputStreamReader(System.in));
+                Runtime.getRuntime().addShutdownHook(new Thread() {
+                    {
+                        System.out.println("Получен сигнал завершения работы (Ctrl+D).");
+                        System.out.println("Закрываем программу");
+                        System.exit(1);
+                    }
+                    @Override
+                    public void run() {
+                    } } );
             } catch (InvokerException e){
                 console.printLine(e.getMessage());
             }

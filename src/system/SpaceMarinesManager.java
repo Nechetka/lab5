@@ -1,7 +1,7 @@
 package system;
 
 import model.SpaceMarine;
-import model.comparators.MarineIdComparator;
+import model.comparators.MarineHealthComparator;
 
 import java.time.Instant;
 import java.util.*;
@@ -46,7 +46,7 @@ public class SpaceMarinesManager implements CollectionReceiver<TreeSet<SpaceMari
     public void sort() {
         TreeSet<SpaceMarine> sortedMarines = new TreeSet<>();
 
-        for (Iterator<SpaceMarine> obj = marines.stream().sorted(new MarineIdComparator()).iterator(); obj.hasNext(); ) {
+        for (Iterator<SpaceMarine> obj = marines.stream().sorted(new MarineHealthComparator()).iterator(); obj.hasNext(); ) {
             SpaceMarine sortedItem = obj.next();
 
             sortedMarines.add(sortedItem);
